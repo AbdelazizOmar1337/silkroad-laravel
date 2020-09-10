@@ -11,6 +11,7 @@ return [
     'nav' => [
         'home' => 'Home',
         'download' => 'Download',
+        'donations' => 'Donations',
         'ranking' => 'Ranking',
         'auction-house' => 'Auction house',
         'serverinformation' => 'Server Information',

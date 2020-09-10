@@ -22,6 +22,12 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="{{ route('donations-index') }}">
+                        {{ __('navbar.nav.donations') }}
+                    </a>
+                </li>
+                
+                <li class="nav-item">
                     <a class="nav-link" href="{{ route('ranking-index') }}">
                         {{ __('navbar.nav.ranking') }}
                     </a>

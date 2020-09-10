@@ -22,6 +22,13 @@ Route::group(['prefix' => 'ranking'], static function () {
     Route::get('/{mode?}', 'Frontend\RankingController@index')->name('ranking-index');
 });
 
+//Donations
+Route::group(['prefix' => 'donations'], function() {
+    Route::get('/', 'Frontend\DonationsController@index')->name('donations-index');
+    Route::get('/success', 'Frontend\DonationsController@success')->name('donations-success');
+    Route::get('/error', 'Frontend\DonationsController@error')->name('donations-error');
+});
+
 // Server Information
 Route::get('/server-information', 'Frontend\IndexController@serverInformation')->name('server-information');
 
@@ -39,6 +46,8 @@ Route::group(['prefix' => 'account'], static function() {
     Route::get('/voucher', 'Frontend\AccountController@voucher')->name('home-voucher');
     Route::get('/voucher-datatables', 'Frontend\AccountController@voucherDatatables')->name('home-voucher-datatables');
     Route::post('/voucher/use', 'Frontend\AccountController@voucherUse')->name('home-voucher-use');
+    Route::get('/donate-paypal', 'Frontend\DonationsController@addPaypal')->name('donate-paypal')->where('id', '[0-9]+')->middleware('auth');
+    
     Route::get('/notification', 'Frontend\NotificationController@index')->name('notification');
     Route::get('/notification/{id}', 'Frontend\NotificationController@markAsRead')->name('notification-mark-as-read')->where('id', '[0-9]+');
     Route::get('/notification/mark-all', 'Frontend\NotificationController@markAllAsRead')->name('notification-mark-all');
@@ -102,6 +111,13 @@ Route::group(['prefix' => 'backend', 'middleware' => ['role:administrator']], st
         Route::delete('/destroy/{id}', 'Backend\ServerInformationController@destroy')->name('server-information-destroy-backend');
     });
 
+    Route::group(['prefix' => 'items'], function () {
+        Route::get('/', 'Backend\ItemController@index')->name('item-index-backend');
+        Route::get('/datatables', 'Backend\ItemController@indexDatatables')->name('item-index-datatables-backend');
+        Route::get('/add', 'Backend\ItemController@addForm')->name('item-add-backend');
+        Route::post('/create', 'Backend\ItemController@create')->name('item-create-backend');
+        Route::post('/destroy/{id}', 'Backend\ItemController@destroy')->name('item-destroy-backend');
+    });
     // Ticket
     Route::group(['prefix' => 'ticket'], static function () {
         Route::get('/{conversation?}', 'Backend\TicketController@list')->name('ticket-index-list')->where(['conversation' => '[0-9]+']);

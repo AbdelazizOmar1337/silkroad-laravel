@@ -54,6 +54,12 @@
         </a>
     </li>
     <li class="nav-item">
+        <a class="nav-link" href="{{ route('item-index-backend') }}">
+            <i class="fas fa-fw fa-redo"></i>
+            <span>{{ __('backend/menu.items') }}</span>
+        </a>
+    </li>
+    <li class="nav-item">
         <a class="nav-link" href="{{ route('backlinks-index-backend') }}">
             <i class="fas fa-fw fa-link"></i>
             <span>{{ __('backend/menu.backlinks') }}</span>
