@@ -38,12 +38,16 @@ class DonationsPayPalController extends Controller
             'cancelUrl' => url('account/donations/donate-paypal-error'),
         ])->send();
 
+        if( $response->getCode() !== 201 ) {
+            return redirect()->route('donate-paypal-error');
+        }
+
         Invoice::create([
             'user_id' => Auth::id(),
             'doty_id' => $donationType->id,
             'total' => $donationType->price,
-            'payment_id' => $response->getData()['id'],
-            'description' => $donationType->name_merchant
+            'description' => $donationType->name_merchant,
+            'payment_id' => $response->getData()['id']
         ]);
 
         if ($response->isRedirect()) {

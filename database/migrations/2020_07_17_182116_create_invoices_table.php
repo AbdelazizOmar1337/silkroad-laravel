@@ -17,14 +17,14 @@ class CreateInvoicesTable extends Migration
             $table->increments('id');
             $table->integer('user_id');
             $table->integer('doty_id');
-			$table->string('total');
+            $table->string('total');
             $table->string('description');
             $table->string('payment_id');
-            $table->integer('paid');
-            $table->integer('closed');
+            $table->integer('paid')->default(0);
+            $table->integer('closed')->default(0);
             $table->timestamps();
         });
-     }
+    }
 
     /**
      * Reverse the migrations.

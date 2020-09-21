@@ -69,6 +69,10 @@ Route::group(['prefix' => 'account'], static function() {
        Route::post('/transfer-item-to-game', 'Frontend\WebInventoryController@transferItemToGame')->name('web-i-transfer-item-to-game');
        Route::get('/inventory', 'Frontend\WebInventoryController@inventory')->name('web-i-inventory');
     });
+
+    Route::group(['prefix' => 'donations'], static function () {
+        Route::get('/', 'Frontend\DonationsController@index')->name('donations-index');
+    });
 });
 
 // Character and Guild Information
@@ -112,12 +116,12 @@ Route::group(['prefix' => 'backend', 'middleware' => ['role:administrator']], st
         Route::delete('/destroy/{id}', 'Backend\ServerInformationController@destroy')->name('server-information-destroy-backend');
     });
 
-    Route::group(['prefix' => 'items'], function () {
-        Route::get('/', 'Backend\ItemController@index')->name('item-index-backend');
-        Route::get('/datatables', 'Backend\ItemController@indexDatatables')->name('item-index-datatables-backend');
-        Route::get('/add', 'Backend\ItemController@addForm')->name('item-add-backend');
-        Route::post('/create', 'Backend\ItemController@create')->name('item-create-backend');
-        Route::post('/destroy/{id}', 'Backend\ItemController@destroy')->name('item-destroy-backend');
+    Route::group(['prefix' => 'donation-types'], function () {
+        Route::get('/', 'Backend\DonationTypesController@index')->name('donation-types-index-backend');
+        Route::get('/datatables', 'Backend\DonationTypesController@index')->name('donation-types-index-datatables-backend');
+        Route::get('/add', 'Backend\DonationTypesController@addForm')->name('donation-types-add-backend');
+        Route::post('/create', 'Backend\DonationTypesController@create')->name('donation-types-create-backend');
+        Route::post('/destroy/{id}', 'Backend\DonationTypesController@destroy')->name('donation-types-destroy-backend');
     });
     // Ticket
     Route::group(['prefix' => 'ticket'], static function () {
