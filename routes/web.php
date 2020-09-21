@@ -22,13 +22,6 @@ Route::group(['prefix' => 'ranking'], static function () {
     Route::get('/{mode?}', 'Frontend\RankingController@index')->name('ranking-index');
 });
 
-//Donations
-Route::group(['prefix' => 'donations'], function() {
-    Route::get('/', 'Frontend\DonationsController@index')->name('donations-index');
-    Route::get('/success', 'Frontend\DonationsController@success')->name('donations-success');
-    Route::get('/error', 'Frontend\DonationsController@error')->name('donations-error');
-});
-
 // Server Information
 Route::get('/server-information', 'Frontend\IndexController@serverInformation')->name('server-information');
 
@@ -46,8 +39,16 @@ Route::group(['prefix' => 'account'], static function() {
     Route::get('/voucher', 'Frontend\AccountController@voucher')->name('home-voucher');
     Route::get('/voucher-datatables', 'Frontend\AccountController@voucherDatatables')->name('home-voucher-datatables');
     Route::post('/voucher/use', 'Frontend\AccountController@voucherUse')->name('home-voucher-use');
-    Route::get('/donate-paypal', 'Frontend\DonationsController@addPaypal')->name('donate-paypal')->where('id', '[0-9]+')->middleware('auth');
-    
+
+    Route::group(['prefix' => 'donations'], function() {
+        Route::get('/', 'Frontend\DonationsController@index')->name('donations-index');
+        Route::get('/donate-paypal', 'Frontend\DonationsPayPalController@addPaypal')->name('donate-paypal')->where('id', '[0-9]+')->middleware('auth');
+        Route::get('/donate-paypal-complete', 'Frontend\DonationsPayPalController@complete')->name('donate-paypal-complete');
+        Route::get('/donate-paypal-invoice-closed', 'Frontend\DonationsPayPalController@invoiceClosed')->name('donate-paypal-invoice-closed');
+        Route::get('/donate-paypal-success', 'Frontend\DonationsPayPalController@success')->name('donate-paypal-success');
+        Route::get('/donate-paypal-error', 'Frontend\DonationsPayPalController@error')->name('donate-paypal-error');
+    });
+
     Route::get('/notification', 'Frontend\NotificationController@index')->name('notification');
     Route::get('/notification/{id}', 'Frontend\NotificationController@markAsRead')->name('notification-mark-as-read')->where('id', '[0-9]+');
     Route::get('/notification/mark-all', 'Frontend\NotificationController@markAllAsRead')->name('notification-mark-all');

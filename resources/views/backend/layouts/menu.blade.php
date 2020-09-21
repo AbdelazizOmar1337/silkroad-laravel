@@ -78,6 +78,12 @@
         </a>
     </li>
     <li class="nav-item">
+        <a class="nav-link" href="{{ route('donation-types-index-backend') }}">
+            <i class="fas fa-fw fa-hand-holding-usd"></i>
+            <span>{{ __('backend/menu.donation-types') }}</span>
+        </a>
+    </li>
+    <li class="nav-item">
         <a class="nav-link" href="{{ route('server-information-index-backend') }}">
             <i class="fas fa-fw fa-info"></i>
             <span>{{ __('backend/menu.serverinformation') }}</span>

@@ -4,9 +4,9 @@
     @include('backend.layouts.navbar')
     <div class="container-fluid">
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">{{ __('backend/item.title') }}</h1>
-            <a href="{{ route('item-add-backend') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-                <i class="fas fa-download fa-sm text-white-50"></i> {{ __('backend/item.title-create') }}
+            <h1 class="h3 mb-0 text-gray-800">{{ __('backend/donationtypes.title') }}</h1>
+            <a href="{{ route('donation-types-add-backend') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                <i class="fas fa-download fa-sm text-white-50"></i> {{ __('backend/donationtypes.title-create') }}
             </a>
         </div>
         <div class="row">
@@ -22,42 +22,38 @@
                         <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">{{ __('backend/item.table.item_name') }}</th>
-                            <th scope="col">{{ __('backend/item.table.item_desc') }}</th>
-                            <th scope="col">{{ __('backend/item.table.item_price') }}</th>
-                            <th scope="col">{{ __('backend/item.table.item_silk') }}</th>
-                            <th scope="col">{{ __('backend/item.table.item_currency') }}</th>
-                            <th scope="col">{{ __('backend/item.table.item_type') }}</th>
-                            <th scope="col">{{ __('backend/item.table.published_at') }}</th>
-                            <th scope="col">{{ __('backend/item.table.action') }}</th>
+                            <th scope="col">{{ __('backend/donationtypes.table.name_web') }}</th>
+                            <th scope="col">{{ __('backend/donationtypes.table.description') }}</th>
+                            <th scope="col">{{ __('backend/donationtypes.table.silk') }}</th>
+                            <th scope="col">{{ __('backend/donationtypes.table.name_merchant') }}</th>
+                            <th scope="col">{{ __('backend/donationtypes.table.price') }}</th>
+                            <th scope="col">{{ __('backend/donationtypes.table.currency') }}</th>
+                            <th scope="col">{{ __('backend/donationtypes.table.type') }}</th>
+                            <th scope="col">{{ __('backend/donationtypes.table.published_at') }}</th>
+                            <th scope="col">{{ __('backend/donationtypes.table.action') }}</th>
                         </tr>
                         </thead>
                         <tbody>
                         @foreach($items as $new)
                             <tr>
                                 <th scope="row">{{ $new->id }}</th>
-                                <td>{{ $new->item_name }}</td>
-                                <td>{{ $new->item_desc }}</td>
-                                <td>{{ $new->item_price }}</td>
-                                <td>{{ $new->item_silk }}</td>
-                                <td>{{ $new->item_currency }}</td>
-                                <td>{{ $new->item_type }}</td>
+                                <td>{{ $new->name_web }}</td>
+                                <td>{{ $new->description }}</td>
+                                <td>{{ $new->silk }}</td>
+                                <td>{{ $new->name_merchant }}</td>
+                                <td>{{ $new->price }}</td>
+                                <td>{{ $new->currency }}</td>
+                                <td>{{ $new->type }}</td>
                                 <td>{{ Carbon\Carbon::parse($new->published_at)->format('d.m.Y H:i \U\h\r') }}</td>
                                 <td>
                                     <div class="row">
-                                        {{-- <div class="col-3">
-                                            <a href="{{ route('item-create-backend', ['item' => $new->id]) }}"
-                                               class="btn btn-primary btn-circle btn-sm">
-                                                <i class="fa fa-pen"></i>
-                                            </a>
-                                        </div> --}}
                                         <div class="col-3">
                                             <form method="POST" data-form="deleteForm"
-                                                  action="{{ route('item-destroy-backend', ['id' => $new->id]) }}">                                                
+                                                  action="{{ route('donation-types-destroy-backend', ['id' => $new->id]) }}">
                                                 @csrf
                                                 <span data-toggle="modal" data-target="#itemModalDelete"
-                                                      data-title="{{ __('backend/item.delete-title') }} {{ $new->id }}"
-                                                      data-message="{{ __('backend/item.delete-message') }}"
+                                                      data-title="{{ __('backend/donationtypes.modal-delete-title') }} {{ $new->id }}"
+                                                      data-message="{{ __('backend/donationtypes.modal-delete-message') }}"
                                                       class="btn btn-danger btn-circle btn-sm" style="cursor: pointer">
                                                     <i class="fa fa-trash"></i>
                                                 </span>
